@@ -30945,7 +30945,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746332768568
+        // 1746333092744
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -87763,7 +87763,7 @@ var options = {
     ignoreHeaders: true,
 };
 exports.client = (0, axios_case_converter_1.default)(axios_1.default.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://tech-put-rails.onrender.com",
     withCredentials: true,
 }), options);
 
@@ -101637,7 +101637,7 @@ function __rewriteRelativeImportExtension(path, preserveJsx) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("05e23d95e7c06501fc03")
+/******/ 		__webpack_require__.h = () => ("6841532a5cb00a81c707")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

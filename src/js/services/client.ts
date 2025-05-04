@@ -7,7 +7,7 @@ const options = {
 
 export const client = applyCaseMiddleware(
   axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL_DEV,
+    baseURL: process.env.REACT_APP_BASE_URL,
     withCredentials: true,
   }),
   options,
