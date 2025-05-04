@@ -24,10 +24,10 @@ export const useSignOut = () => {
         navigate("/signin");
         window.location.reload();
       } else {
-        console.log("サインアウトに失敗");
+        throw new Error("ログアウトに失敗しました");
       }
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e);
     }
   };
   return { handleSignOut };

@@ -26,6 +26,7 @@ export type User = {
   allowPasswordChange: boolean;
   created_at: Date;
   updated_at: Date;
+  guest: boolean;
 };
 
 //googleログイン

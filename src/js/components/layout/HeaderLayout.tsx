@@ -8,6 +8,7 @@ export const HeaderLayout = () => {
     location.pathname !== "/signin" &&
     location.pathname !== "/signup" &&
     location.pathname !== "/forgot-password" &&
-    location.pathname !== "/reset-password" && <Header />
+    location.pathname !== "/reset-password" &&
+    location.pathname !== "/guest-login" && <Header />
   );
 };

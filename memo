@@ -1,84 +1,71 @@
-<!-- import React, { useContext, useEffect } from "react";
-import { FormButton } from "../../components/parts/FormButton";
-import { InputArea } from "../../components/header/InputArea";
-import { AuthForm } from "../../components/layout/AuthForm";
-import { AuthSubTextRight } from "../../components/parts/AuthSubTextRight";
-import { AuthSnsButton } from "../../components/parts/AuthSnsButton";
-import { AuthFooterButton } from "../../components/parts/AuthFooterButton";
-import { useLogin } from "../../hooks/useLogin";
-import { useNavigation } from "../../hooks/useNavigation";
-import { googleLogin } from "../../services/authService";
-import { AuthContext } from "../../contexts/AuthContext";
-import { CredentialResponse } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom";
+{email: 'kurumi.program@gmail.com', provider: 'email', uid: 'kurumi.program@gmail.com', id: 1, allowPasswordChange: false, …}
+allowPasswordChange
+: 
+false
+email
+: 
+"kurumi.program@gmail.com"
+guest
+: 
+null
+id
+: 
+1
+image
+: 
+null
+name
+: 
+"kurumi"
+nickname
+: 
+null
+provider
+: 
+"email"
+uid
+: 
+"kurumi.program@gmail.com"
+username
+: 
+"@kurumi.program_1"
 
-export const Login = () => {
-  const { signinErrors, handleSubmit, generalErrors, email, setEmail, password, setPassword } =
-    useLogin();
-  const { handleNavigate } = useNavigation();
-  const { setCurrentUser } = useContext(AuthContext);
-  const navigate = useNavigate();
 
-  // Google APIの初期化をuseEffectで行う
-  useEffect(() => {
-    if (window.google) {
-      window.google.accounts.id.initialize({
-        client_id: "418253089971-so19e30fpg2scrpppp9daef1l3b24jel.apps.googleusercontent.com", // Google Console で取得したクライアントID
-        callback: (response: CredentialResponse) => {
-          const { credential } = response;
-          if (credential) {
-            handleLogin(credential);
-            navigate("/");
-          } else {
-            console.error("Google login failed: No credential received");
-          }
-        },
-      });
-    }
-  }, []); // 初回レンダリング時にだけ実行
 
-  const handleLogin = async (credential: string) => {
-    // トークンをバックエンドに送信
-    try {
-      const response = await googleLogin(credential);
-      debugger;
-      setCurrentUser(response.data.user);
-    } catch (error) {
-      console.error("Login failed:", error);
-      // エラーメッセージなどを表示する処理を追加すると良い
-    }
-  };
-
-  const handleGoogleLogin = () => {
-    console.log("Google login button clicked"); // ログを追加
-    if (window.google) {
-      window.google.accounts.id.prompt();
-    } else {
-      console.log("Google API not available");
-    }
-  };
-
-  return (
-    <AuthForm onSubmit={handleSubmit(false)}>
-      <p className="text-red-600 text-sm">{generalErrors}</p>
-      <InputArea placeholder="メールアドレス" value={email} onChange={setEmail} type="email" />
-      {signinErrors.email.map((mail, index) => (
-        <p className="text-red-600 text-sm" key={index}>
-          メールアドレス{mail}
-        </p>
-      ))}
-      <InputArea placeholder="パスワード" value={password} onChange={setPassword} type="password" />
-      {signinErrors.password.map((pass, index) => (
-        <p className="text-red-600 text-sm" key={index}>
-          パスワード{pass}
-        </p>
-      ))}
-      <AuthSubTextRight onClick={() => handleNavigate("/forgot-password")}>
-        パスワードをお忘れですか？
-      </AuthSubTextRight>
-      <FormButton>ログイン</FormButton>
-      <AuthSnsButton onClick={handleGoogleLogin}>Googleでログインする</AuthSnsButton>
-      <AuthFooterButton onClick={() => handleNavigate("/signup")}>新規会員登録</AuthFooterButton>
-    </AuthForm>
-  );
-}; -->
+{id: 13, provider: 'email', uid: 'guest_7262bd9f-6258-4a25-ab51-83dc4aed7347@example.com', allowPasswordChange: false, name: null, …}
+allowPasswordChange
+: 
+false
+createdAt
+: 
+"2025-05-04T18:20:25.399+09:00"
+email
+: 
+"guest_7262bd9f-6258-4a25-ab51-83dc4aed7347@example.com"
+guest
+: 
+true
+id
+: 
+13
+image
+: 
+null
+name
+: 
+null
+nickname
+: 
+null
+provider
+: 
+"email"
+uid
+: 
+"guest_7262bd9f-6258-4a25-ab51-83dc4aed7347@example.com"
+updatedAt
+: 
+"2025-05-04T18:20:25.574+09:00"
+username
+: 
+"@guest_7262bd9f-6258-4a25-ab51-83dc

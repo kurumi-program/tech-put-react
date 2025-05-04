@@ -27,6 +27,7 @@ import { NotFound } from "./pages/post/NotFound";
 import { Terms } from "./pages/legal/Terms";
 import { Privacy } from "./pages/legal/Privacy";
 import { Help } from "./pages/legal/Help";
+import { GuestLogin } from "./pages/auth/GuestLogin";
 
 export const App = () => {
   return (
@@ -64,6 +65,7 @@ export const App = () => {
                     <Route path="/signin" element={<Login />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/guest-login" element={<GuestLogin />} />
                   </Route>
                 </Routes>
               </RelationshipProvider>
