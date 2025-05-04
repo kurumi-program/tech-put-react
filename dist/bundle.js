@@ -30945,7 +30945,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746333092744
+        // 1746338495371
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -84689,35 +84689,36 @@ var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/servic
 var useTopPosts = function () {
     var _a = (0, react_1.useState)([]), topPosts = _a[0], setTopPosts = _a[1];
     var fetchTopPostsData = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var storedTopPosts, res, e_1;
+        var res, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    storedTopPosts = sessionStorage.getItem("topPosts");
-                    if (!storedTopPosts) return [3 /*break*/, 1];
-                    setTopPosts(JSON.parse(storedTopPosts));
-                    return [3 /*break*/, 4];
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, client_1.client.get("/top_posts")];
-                case 2:
+                case 1:
                     res = _a.sent();
                     if (res.data) {
                         setTopPosts(res.data);
-                        //sessionStorageに保存
+                        // サーバーから取得したデータをsessionStorageに保存
                         sessionStorage.setItem("topPosts", JSON.stringify(res.data));
                     }
-                    return [3 /*break*/, 4];
-                case 3:
+                    return [3 /*break*/, 3];
+                case 2:
                     e_1 = _a.sent();
                     console.error("トップのポストの取得に失敗しました", e_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     }); };
     (0, react_1.useEffect)(function () {
+        //リロード時にはサーバーからデータ取得
         fetchTopPostsData();
+        // ページ遷移時にsessionStorageからデータを利用
+        var savedPosts = sessionStorage.getItem("topPosts");
+        if (savedPosts) {
+            setTopPosts(JSON.parse(savedPosts));
+        }
     }, []);
     return { topPosts: topPosts, setTopPosts: setTopPosts };
 };
@@ -84777,35 +84778,36 @@ var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/servic
 var useTopUsers = function () {
     var _a = (0, react_1.useState)([]), topUsers = _a[0], setTopUsers = _a[1];
     var fetchTopUsersData = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var storedTopUsers, res, e_1;
+        var res, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    storedTopUsers = sessionStorage.getItem("topUsers");
-                    if (!storedTopUsers) return [3 /*break*/, 1];
-                    setTopUsers(JSON.parse(storedTopUsers));
-                    return [3 /*break*/, 4];
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, client_1.client.get("/top_users")];
-                case 2:
+                case 1:
                     res = _a.sent();
                     if (res.data) {
                         setTopUsers(res.data);
-                        //sessionStorageに保存
+                        // サーバーから取得したデータをsessionStorageに保存
                         sessionStorage.setItem("topUsers", JSON.stringify(res.data));
                     }
-                    return [3 /*break*/, 4];
-                case 3:
+                    return [3 /*break*/, 3];
+                case 2:
                     e_1 = _a.sent();
                     console.error("トップのユーザーの取得に失敗しました", e_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     }); };
     (0, react_1.useEffect)(function () {
+        //リロード時にはサーバーからデータ取得
         fetchTopUsersData();
+        // ページ遷移時にsessionStorageからデータを利用
+        var savedUsers = sessionStorage.getItem("topUsers");
+        if (savedUsers) {
+            setTopUsers(JSON.parse(savedUsers));
+        }
     }, []);
     return { topUsers: topUsers, setTopUsers: setTopUsers };
 };
@@ -101637,7 +101639,7 @@ function __rewriteRelativeImportExtension(path, preserveJsx) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("6841532a5cb00a81c707")
+/******/ 		__webpack_require__.h = () => ("0432a4df3eca5b42f6ac")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
