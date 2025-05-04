@@ -76,6 +76,11 @@
   font-size: 13px !important;
 }
 
+.font-small-gray {
+  font-size: 13px;
+  color: var(--gray-color-4);
+}
+
 /* header */
 
 header {

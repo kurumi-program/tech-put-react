@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 export const useNoticeData = () => {
   const { noticeList, setNoticeList, bellActive, setBellActive } = useContext(NoticeContext);
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
   const fetchNotices = async () => {
     if (!currentUser) return;
     try {

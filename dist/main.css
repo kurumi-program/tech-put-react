@@ -963,6 +963,11 @@
   font-size: 13px !important;
 }
 
+.font-small-gray {
+  font-size: 13px;
+  color: var(--gray-color-4);
+}
+
 /* header */
 
 header {
@@ -2964,6 +2969,9 @@ video {
 }
 .max-w-full {
   max-width: 100%;
+}
+.flex-1 {
+  flex: 1 1 0%;
 }
 .cursor-pointer {
   cursor: pointer;

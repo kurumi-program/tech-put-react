@@ -30875,7 +30875,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746237881824
+        // 1746325761972
         var cssReload = __webpack_require__(/*! ../../mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -30910,7 +30910,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746237881734
+        // 1746326101951
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -30945,7 +30945,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746259300770
+        // 1746332768568
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -81080,6 +81080,46 @@ exports.UserDropDown = react_1.default.forwardRef(function (_a, ref) {
 
 /***/ }),
 
+/***/ "./src/js/components/parts/UserInfoWithDate.tsx":
+/*!******************************************************!*\
+  !*** ./src/js/components/parts/UserInfoWithDate.tsx ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UserInfoWithDate = void 0;
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var UserAvatarImage_1 = __webpack_require__(/*! ./UserAvatarImage */ "./src/js/components/parts/UserAvatarImage.tsx");
+var UserInfoWithDate = function (_a) {
+    var onNavClick = _a.onNavClick, src = _a.src, userName = _a.userName, userUserName = _a.userUserName, createdAt = _a.createdAt;
+    return (react_1.default.createElement("div", { className: "flex" },
+        react_1.default.createElement("div", { onClick: function (e) {
+                e.stopPropagation();
+                onNavClick === null || onNavClick === void 0 ? void 0 : onNavClick();
+            }, className: "btn" },
+            react_1.default.createElement(UserAvatarImage_1.UserAvatarImage, { src: src })),
+        react_1.default.createElement("div", null,
+            react_1.default.createElement("div", { className: "flex" },
+                react_1.default.createElement("p", { onClick: function (e) {
+                        e.stopPropagation();
+                        onNavClick === null || onNavClick === void 0 ? void 0 : onNavClick();
+                    }, className: "hover-underline line-height-12 user-name ml-2" }, userName),
+                react_1.default.createElement("p", { className: "line-height-12 post-history ml-2" }, createdAt)),
+            react_1.default.createElement("p", { onClick: function (e) {
+                    e.stopPropagation();
+                    onNavClick === null || onNavClick === void 0 ? void 0 : onNavClick();
+                }, className: "hover-underline line-height-12 user-id ml-2" }, userUserName))));
+};
+exports.UserInfoWithDate = UserInfoWithDate;
+
+
+/***/ }),
+
 /***/ "./src/js/components/parts/UserParts.tsx":
 /*!***********************************************!*\
   !*** ./src/js/components/parts/UserParts.tsx ***!
@@ -84649,23 +84689,30 @@ var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/servic
 var useTopPosts = function () {
     var _a = (0, react_1.useState)([]), topPosts = _a[0], setTopPosts = _a[1];
     var fetchTopPostsData = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res, e_1;
+        var storedTopPosts, res, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, client_1.client.get("/top_posts")];
+                    storedTopPosts = sessionStorage.getItem("topPosts");
+                    if (!storedTopPosts) return [3 /*break*/, 1];
+                    setTopPosts(JSON.parse(storedTopPosts));
+                    return [3 /*break*/, 4];
                 case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, client_1.client.get("/top_posts")];
+                case 2:
                     res = _a.sent();
                     if (res.data) {
                         setTopPosts(res.data);
+                        //sessionStorageに保存
+                        sessionStorage.setItem("topPosts", JSON.stringify(res.data));
                     }
-                    return [3 /*break*/, 3];
-                case 2:
+                    return [3 /*break*/, 4];
+                case 3:
                     e_1 = _a.sent();
                     console.error("トップのポストの取得に失敗しました", e_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     }); };
@@ -84730,23 +84777,30 @@ var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/servic
 var useTopUsers = function () {
     var _a = (0, react_1.useState)([]), topUsers = _a[0], setTopUsers = _a[1];
     var fetchTopUsersData = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res, e_1;
+        var storedTopUsers, res, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, client_1.client.get("/top_users")];
+                    storedTopUsers = sessionStorage.getItem("topUsers");
+                    if (!storedTopUsers) return [3 /*break*/, 1];
+                    setTopUsers(JSON.parse(storedTopUsers));
+                    return [3 /*break*/, 4];
                 case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, client_1.client.get("/top_users")];
+                case 2:
                     res = _a.sent();
                     if (res.data) {
                         setTopUsers(res.data);
+                        //sessionStorageに保存
+                        sessionStorage.setItem("topUsers", JSON.stringify(res.data));
                     }
-                    return [3 /*break*/, 3];
-                case 2:
+                    return [3 /*break*/, 4];
+                case 3:
                     e_1 = _a.sent();
                     console.error("トップのユーザーの取得に失敗しました", e_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     }); };
@@ -85004,8 +85058,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NoticeItem = void 0;
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var useNavigation_1 = __webpack_require__(/*! ../hooks/utils/useNavigation */ "./src/js/hooks/utils/useNavigation.ts");
-var UserWithImageParts_1 = __webpack_require__(/*! ../components/parts/UserWithImageParts */ "./src/js/components/parts/UserWithImageParts.tsx");
 var AuthContext_1 = __webpack_require__(/*! ../contexts/AuthContext */ "./src/js/contexts/AuthContext.tsx");
+var UserInfoWithDate_1 = __webpack_require__(/*! ../components/parts/UserInfoWithDate */ "./src/js/components/parts/UserInfoWithDate.tsx");
 var NoticeItem = function (_a) {
     var notice = _a.notice;
     var handleNavigate = (0, useNavigation_1.useNavigation)().handleNavigate;
@@ -85014,8 +85068,11 @@ var NoticeItem = function (_a) {
         if (notice.commentId) {
             handleNavigate("/post-detail/".concat(notice.postId, "/#mention-").concat(notice.commentId));
         }
-        else {
+        else if (notice.likeId) {
             handleNavigate("/post-detail/".concat(notice.postId));
+        }
+        else {
+            handleNavigate("/users/".concat(notice.senderId));
         }
     };
     var handleUserPage = function () {
@@ -85027,7 +85084,7 @@ var NoticeItem = function (_a) {
         }
     };
     return (react_1.default.createElement("li", { onClick: handleNavClick, className: "article border cursor-pointer btn" },
-        react_1.default.createElement(UserWithImageParts_1.UserWithImageParts, { className: "ml-2", userName: notice.senderName, userId: notice.senderUserName, src: notice.senderUserAvatarUrl, onClick: function () { return handleUserPage(); } }),
+        react_1.default.createElement(UserInfoWithDate_1.UserInfoWithDate, { onNavClick: function () { return handleUserPage(); }, src: notice.senderUserAvatarUrl, userName: notice.senderName, userUserName: notice.senderUserName, createdAt: notice.createdAt }),
         react_1.default.createElement("p", { className: "mt-3" }, notice.message)));
 };
 exports.NoticeItem = NoticeItem;
@@ -87706,7 +87763,7 @@ var options = {
     ignoreHeaders: true,
 };
 exports.client = (0, axios_case_converter_1.default)(axios_1.default.create({
-    baseURL: "https://tech-put-rails.onrender.com",
+    baseURL: "http://localhost:3000",
     withCredentials: true,
 }), options);
 
@@ -87866,9 +87923,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserPost = void 0;
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var useNavigation_1 = __webpack_require__(/*! ../hooks/utils/useNavigation */ "./src/js/hooks/utils/useNavigation.ts");
-var UserAvatarImage_1 = __webpack_require__(/*! ../components/parts/UserAvatarImage */ "./src/js/components/parts/UserAvatarImage.tsx");
 var AuthContext_1 = __webpack_require__(/*! ../contexts/AuthContext */ "./src/js/contexts/AuthContext.tsx");
 var useHandleModal_1 = __webpack_require__(/*! ../hooks/utils/useHandleModal */ "./src/js/hooks/utils/useHandleModal.ts");
+var UserInfoWithDate_1 = __webpack_require__(/*! ../components/parts/UserInfoWithDate */ "./src/js/components/parts/UserInfoWithDate.tsx");
 var UserPost = function (_a) {
     var userId = _a.userId, userName = _a.userName, userUserName = _a.userUserName, createdAt = _a.createdAt, onClick = _a.onClick, src = _a.src;
     var handleNavigate = (0, useNavigation_1.useNavigation)().handleNavigate;
@@ -87889,23 +87946,7 @@ var UserPost = function (_a) {
             scrollDisabledAndModalOpen();
         }
     };
-    return (react_1.default.createElement("div", { className: "flex", onClick: onClick },
-        react_1.default.createElement("div", { onClick: function (e) {
-                e.stopPropagation();
-                navigate();
-            }, className: "btn" },
-            react_1.default.createElement(UserAvatarImage_1.UserAvatarImage, { src: src })),
-        react_1.default.createElement("div", null,
-            react_1.default.createElement("div", { className: "flex" },
-                react_1.default.createElement("p", { onClick: function (e) {
-                        e.stopPropagation();
-                        navigate();
-                    }, className: "hover-underline line-height-12 user-name ml-2" }, userName),
-                react_1.default.createElement("p", { className: "line-height-12 post-history ml-2" }, createdAt)),
-            react_1.default.createElement("p", { onClick: function (e) {
-                    e.stopPropagation();
-                    navigate();
-                }, className: "hover-underline line-height-12 user-id ml-2" }, userUserName))));
+    return (react_1.default.createElement(UserInfoWithDate_1.UserInfoWithDate, { onNavClick: function () { return navigate(); }, src: src, userName: userName, userUserName: userUserName, createdAt: createdAt }));
 };
 exports.UserPost = UserPost;
 
@@ -101596,7 +101637,7 @@ function __rewriteRelativeImportExtension(path, preserveJsx) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("30e89d44ab846f392ac5")
+/******/ 		__webpack_require__.h = () => ("05e23d95e7c06501fc03")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

@@ -4,6 +4,7 @@ import { Notice } from "../types/notice";
 import { useNavigation } from "../hooks/utils/useNavigation";
 import { UserWithImageParts } from "../components/parts/UserWithImageParts";
 import { AuthContext } from "../contexts/AuthContext";
+import { UserInfoWithDate } from "../components/parts/UserInfoWithDate";
 
 type Props = {
   notice: Notice;
@@ -11,13 +12,15 @@ type Props = {
 
 export const NoticeItem = ({ notice }: Props) => {
   const { handleNavigate } = useNavigation();
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
 
   const handleNavClick = () => {
     if (notice.commentId) {
       handleNavigate(`/post-detail/${notice.postId}/#mention-${notice.commentId}`);
-    } else {
+    } else if (notice.likeId) {
       handleNavigate(`/post-detail/${notice.postId}`);
+    } else {
+      handleNavigate(`/users/${notice.senderId}`);
     }
   };
 
@@ -31,12 +34,12 @@ export const NoticeItem = ({ notice }: Props) => {
 
   return (
     <li onClick={handleNavClick} className="article border cursor-pointer btn">
-      <UserWithImageParts
-        className="ml-2"
-        userName={notice.senderName}
-        userId={notice.senderUserName}
+      <UserInfoWithDate
+        onNavClick={() => handleUserPage()}
         src={notice.senderUserAvatarUrl}
-        onClick={() => handleUserPage()}
+        userName={notice.senderName}
+        userUserName={notice.senderUserName}
+        createdAt={notice.createdAt}
       />
       <p className="mt-3">{notice.message}</p>
     </li>

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { useNavigation } from "../hooks/utils/useNavigation";
-import { UserAvatarImage } from "../components/parts/UserAvatarImage";
 import { AuthContext } from "../contexts/AuthContext";
 import { useHandleModal } from "../hooks/utils/useHandleModal";
+import { UserInfoWithDate } from "../components/parts/UserInfoWithDate";
 
 type Props = {
   userId?: string;
@@ -31,39 +31,12 @@ export const UserPost = ({ userId, userName, userUserName, createdAt, onClick, s
     }
   };
   return (
-    <div className="flex" onClick={onClick}>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate();
-        }}
-        className="btn"
-      >
-        <UserAvatarImage src={src} />
-      </div>
-      <div>
-        <div className="flex">
-          <p
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate();
-            }}
-            className="hover-underline line-height-12 user-name ml-2"
-          >
-            {userName}
-          </p>
-          <p className="line-height-12 post-history ml-2">{createdAt}</p>
-        </div>
-        <p
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate();
-          }}
-          className="hover-underline line-height-12 user-id ml-2"
-        >
-          {userUserName}
-        </p>
-      </div>
-    </div>
+    <UserInfoWithDate
+      onNavClick={() => navigate()}
+      src={src}
+      userName={userName}
+      userUserName={userUserName}
+      createdAt={createdAt}
+    />
   );
 };

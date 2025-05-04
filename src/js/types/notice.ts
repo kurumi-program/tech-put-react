@@ -6,8 +6,9 @@ export type Notice = {
   senderName: string;
   senderUserName: string;
   senderUserAvatarUrl: string | null;
-  likeSenderName: string;
   read: boolean;
   postId: string;
   commentId: string;
+  likeId: string;
+  relationId: string;
 };
