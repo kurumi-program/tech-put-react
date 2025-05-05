@@ -30945,7 +30945,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746364203734
+        // 1746452296646
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -82921,24 +82921,32 @@ exports.useCommentData = void 0;
 var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var PostContext_1 = __webpack_require__(/*! ../../contexts/PostContext */ "./src/js/contexts/PostContext.tsx");
 var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/services/client.ts");
+var useNavigation_1 = __webpack_require__(/*! ../utils/useNavigation */ "./src/js/hooks/utils/useNavigation.ts");
 var useCommentData = function (postId) {
     var _a = (0, react_1.useContext)(PostContext_1.PostContext), setIsCommentLoading = _a.setIsCommentLoading, commentList = _a.commentList, setCommentList = _a.setCommentList;
+    var handleNavigate = (0, useNavigation_1.useNavigation)().handleNavigate;
     var fetchComments = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var res, e_1;
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, 3, 4]);
+                    _b.trys.push([0, 2, 3, 4]);
                     return [4 /*yield*/, client_1.client.get("/posts/".concat(postId, "/comments"))];
                 case 1:
-                    res = _a.sent();
+                    res = _b.sent();
                     if (res.data) {
                         setCommentList(res.data);
                     }
                     return [3 /*break*/, 4];
                 case 2:
-                    error_1 = _a.sent();
-                    console.error("投稿の取得に失敗しました", error_1);
+                    e_1 = _b.sent();
+                    if (((_a = e_1.response) === null || _a === void 0 ? void 0 : _a.status) === 404) {
+                        handleNavigate("*");
+                    }
+                    else {
+                        console.error("投稿の取得に失敗しました", e_1);
+                    }
                     return [3 /*break*/, 4];
                 case 3:
                     setIsCommentLoading(false);
@@ -84165,25 +84173,33 @@ exports.useUserProfile = void 0;
 var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/services/client.ts");
 var ProfileContext_1 = __webpack_require__(/*! ../../contexts/ProfileContext */ "./src/js/contexts/ProfileContext.tsx");
+var useNavigation_1 = __webpack_require__(/*! ../utils/useNavigation */ "./src/js/hooks/utils/useNavigation.ts");
 var useUserProfile = function (userId) {
     var _a = (0, react_1.useContext)(ProfileContext_1.ProfileContext), userProfile = _a.userProfile, setUserProfile = _a.setUserProfile, userPostList = _a.userPostList, setUserPostList = _a.setUserPostList, isUserProfileLoading = _a.isUserProfileLoading, setIsUserProfileLoading = _a.setIsUserProfileLoading;
+    var handleNavigate = (0, useNavigation_1.useNavigation)().handleNavigate;
     var fetchUserProfile = function () { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, 3, 4]);
+                    _b.trys.push([0, 2, 3, 4]);
                     return [4 /*yield*/, client_1.client.get("/users/".concat(userId))];
                 case 1:
-                    res = _a.sent();
+                    res = _b.sent();
                     if (res.data) {
                         setUserProfile(res.data);
                         setUserPostList(res.data.post);
                     }
                     return [3 /*break*/, 4];
                 case 2:
-                    e_1 = _a.sent();
-                    console.error("プロフィールの取得に失敗しました", e_1);
+                    e_1 = _b.sent();
+                    if (((_a = e_1.response) === null || _a === void 0 ? void 0 : _a.status) === 404) {
+                        handleNavigate("*");
+                    }
+                    else {
+                        console.error("プロフィールの取得に失敗しました", e_1);
+                    }
                     return [3 /*break*/, 4];
                 case 3:
                     setIsUserProfileLoading(false);
@@ -84388,24 +84404,32 @@ var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/services/client.ts");
 var RelationshipContext_1 = __webpack_require__(/*! ../../contexts/RelationshipContext */ "./src/js/contexts/RelationshipContext.tsx");
 var authService_1 = __webpack_require__(/*! ../../services/authService */ "./src/js/services/authService.ts");
+var useNavigation_1 = __webpack_require__(/*! ../utils/useNavigation */ "./src/js/hooks/utils/useNavigation.ts");
 var useRelationshipList = function (userId) {
     var _a = (0, react_1.useContext)(RelationshipContext_1.RelationshipContext), followList = _a.followList, setFollowList = _a.setFollowList, followerList = _a.followerList, setFollowerList = _a.setFollowerList;
+    var handleNavigate = (0, useNavigation_1.useNavigation)().handleNavigate;
     var fetchFollowList = function () { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, client_1.client.get("/users/".concat(userId, "/followings"), { headers: (0, authService_1.authHeaders)() })];
                 case 1:
-                    res = _a.sent();
+                    res = _b.sent();
                     if (res.data) {
                         setFollowList(res.data);
                     }
                     return [3 /*break*/, 3];
                 case 2:
-                    e_1 = _a.sent();
-                    console.error(e_1, "フォローのリストの取得に失敗しました");
+                    e_1 = _b.sent();
+                    if (((_a = e_1.response) === null || _a === void 0 ? void 0 : _a.status) === 404) {
+                        handleNavigate("*");
+                    }
+                    else {
+                        console.error(e_1, "フォローのリストの取得に失敗しました");
+                    }
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -84413,20 +84437,26 @@ var useRelationshipList = function (userId) {
     }); };
     var fetchFollowerList = function () { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, client_1.client.get("/users/".concat(userId, "/followers"), { headers: (0, authService_1.authHeaders)() })];
                 case 1:
-                    res = _a.sent();
+                    res = _b.sent();
                     if (res.data) {
                         setFollowerList(res.data);
                     }
                     return [3 /*break*/, 3];
                 case 2:
-                    e_2 = _a.sent();
-                    console.error(e_2, "フォローのリストの取得に失敗しました");
+                    e_2 = _b.sent();
+                    if (((_a = e_2.response) === null || _a === void 0 ? void 0 : _a.status) === 404) {
+                        handleNavigate("*");
+                    }
+                    else {
+                        console.error(e_2, "フォローのリストの取得に失敗しました");
+                    }
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -101817,7 +101847,7 @@ function __rewriteRelativeImportExtension(path, preserveJsx) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("b5af68995561197b5c02")
+/******/ 		__webpack_require__.h = () => ("9bbe9dde2c057242e5e7")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
