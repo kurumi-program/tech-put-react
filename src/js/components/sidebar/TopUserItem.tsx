@@ -8,6 +8,7 @@ import { useNavigation } from "../../hooks/utils/useNavigation";
 import { TopCurrentUserParts } from "./TopCurrentUserParts";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useHandleModal } from "../../hooks/utils/useHandleModal";
+import { handleUserPage } from "../../utils/handleUserPage";
 
 type Props = {
   user: User;
@@ -20,16 +21,8 @@ export const TopUserItem = ({ user, currentUser }: Props) => {
   const { scrollDisabledAndModalOpen } = useHandleModal({
     setIsOpen: setIsLoginModalOpen,
   });
-  const handleUserPage = (userId: string) => {
-    if (currentUser) {
-      if (currentUser?.id === userId) {
-        handleNavigate("/my-page");
-      } else {
-        handleNavigate(`/users/${userId}`);
-      }
-    } else {
-      scrollDisabledAndModalOpen();
-    }
+  const handleClick = () => {
+    handleUserPage({ userId: user.id, currentUser, handleNavigate, scrollDisabledAndModalOpen });
   };
   return (
     <li className="sidebar-flex">
@@ -38,7 +31,7 @@ export const TopUserItem = ({ user, currentUser }: Props) => {
         className="ml-2"
         userName={user.name}
         userId={user.username}
-        onClick={() => handleUserPage(user.id)}
+        onClick={handleClick}
       />
       {currentUser ? (
         currentUser.id !== user.id ? (

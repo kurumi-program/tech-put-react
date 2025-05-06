@@ -6,7 +6,7 @@ import { SearchBox } from "../parts/SearchBox";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export const Header = () => {
-  const { currentUser, isLoading } = useContext(AuthContext)
+  const { currentUser, isLoading } = useContext(AuthContext);
   const { handleNavigate } = useNavigation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 

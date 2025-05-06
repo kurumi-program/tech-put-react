@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 type Props = {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPostOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -6,40 +8,49 @@ type Props = {
 
 export const useHandleModal = ({ setIsOpen, setIsPostOpen, setIsEditOpen }: Props) => {
   const scrollDisabledAndModalOpen = () => {
-    /* 背景スクロール無効 */
     document.body.classList.add("over-hidden");
-    if (setIsOpen) setIsOpen(true);
+    setIsOpen?.(true);
   };
 
   const scrollValidAndModalClose = () => {
-    /* 背景スクロール有効 */
     document.body.classList.remove("over-hidden");
-    if (setIsOpen) setIsOpen(false);
+    setIsOpen?.(false);
   };
 
   const scrollDisabledAndPostModalOpen = () => {
-    /* 背景スクロール無効 */
     document.body.classList.add("over-hidden");
-    if (setIsPostOpen) setIsPostOpen(true);
+    setIsPostOpen?.(true);
   };
 
   const scrollValidAndPostModalClose = () => {
-    /* 背景スクロール有効 */
     document.body.classList.remove("over-hidden");
-    if (setIsPostOpen) setIsPostOpen(false);
+    setIsPostOpen?.(false);
   };
 
   const scrollDisabledAndEditModalOpen = () => {
-    /* 背景スクロール無効 */
     document.body.classList.add("over-hidden");
-    if (setIsEditOpen) setIsEditOpen(true);
+    setIsEditOpen?.(true);
   };
 
   const scrollValidAndEditModalClose = () => {
-    /* 背景スクロール有効 */
     document.body.classList.remove("over-hidden");
-    if (setIsEditOpen) setIsEditOpen(false);
+    setIsEditOpen?.(false);
   };
+
+  // 追加: 戻るボタン対応
+  useEffect(() => {
+    const handlePopState = () => {
+      // 全部閉じておく（開いてたものが閉じる）
+      document.body.classList.remove("over-hidden");
+      setIsOpen?.(false);
+      setIsPostOpen?.(false);
+      setIsEditOpen?.(false);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    //クリーンアップ関数、アンマント時やステートが変わった時に実行される
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [setIsOpen, setIsPostOpen, setIsEditOpen]);
 
   return {
     scrollDisabledAndModalOpen,

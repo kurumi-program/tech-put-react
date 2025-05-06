@@ -30910,7 +30910,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746326101951
+        // 1746534836556
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -30945,7 +30945,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746452296646
+        // 1746538540799
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -81616,6 +81616,7 @@ var useNavigation_1 = __webpack_require__(/*! ../../hooks/utils/useNavigation */
 var TopCurrentUserParts_1 = __webpack_require__(/*! ./TopCurrentUserParts */ "./src/js/components/sidebar/TopCurrentUserParts.tsx");
 var AuthContext_1 = __webpack_require__(/*! ../../contexts/AuthContext */ "./src/js/contexts/AuthContext.tsx");
 var useHandleModal_1 = __webpack_require__(/*! ../../hooks/utils/useHandleModal */ "./src/js/hooks/utils/useHandleModal.ts");
+var handleUserPage_1 = __webpack_require__(/*! ../../utils/handleUserPage */ "./src/js/utils/handleUserPage.ts");
 var TopUserItem = function (_a) {
     var user = _a.user, currentUser = _a.currentUser;
     var handleNavigate = (0, useNavigation_1.useNavigation)().handleNavigate;
@@ -81623,21 +81624,11 @@ var TopUserItem = function (_a) {
     var scrollDisabledAndModalOpen = (0, useHandleModal_1.useHandleModal)({
         setIsOpen: setIsLoginModalOpen,
     }).scrollDisabledAndModalOpen;
-    var handleUserPage = function (userId) {
-        if (currentUser) {
-            if ((currentUser === null || currentUser === void 0 ? void 0 : currentUser.id) === userId) {
-                handleNavigate("/my-page");
-            }
-            else {
-                handleNavigate("/users/".concat(userId));
-            }
-        }
-        else {
-            scrollDisabledAndModalOpen();
-        }
+    var handleClick = function () {
+        (0, handleUserPage_1.handleUserPage)({ userId: user.id, currentUser: currentUser, handleNavigate: handleNavigate, scrollDisabledAndModalOpen: scrollDisabledAndModalOpen });
     };
     return (react_1.default.createElement("li", { className: "sidebar-flex" },
-        react_1.default.createElement(UserWithImageParts_1.UserWithImageParts, { src: user.avatarUrl, className: "ml-2", userName: user.name, userId: user.username, onClick: function () { return handleUserPage(user.id); } }),
+        react_1.default.createElement(UserWithImageParts_1.UserWithImageParts, { src: user.avatarUrl, className: "ml-2", userName: user.name, userId: user.username, onClick: handleClick }),
         currentUser ? (currentUser.id !== user.id ? (react_1.default.createElement(TopCurrentUserParts_1.TopCurrentUserParts, { user: user })) : null) : (react_1.default.createElement(FollowButton_1.FollowButton, { onClick: scrollDisabledAndModalOpen, className: "follow-btn" }, "\u30D5\u30A9\u30ED\u30FC"))));
 };
 exports.TopUserItem = TopUserItem;
@@ -81992,6 +81983,8 @@ exports.ProfileContext = (0, react_1.createContext)({
     setProfileLearnPostList: function () { },
     userPostList: [],
     setUserPostList: function () { },
+    searchUserList: [],
+    setSearchUserList: function () { },
 });
 var ProfileProvider = function (_a) {
     var children = _a.children;
@@ -82003,6 +81996,7 @@ var ProfileProvider = function (_a) {
     var _g = (0, react_1.useState)([]), profileLikedPostList = _g[0], setProfileLikedPostList = _g[1];
     var _h = (0, react_1.useState)([]), profileLearnPostList = _h[0], setProfileLearnPostList = _h[1];
     var _j = (0, react_1.useState)([]), userPostList = _j[0], setUserPostList = _j[1];
+    var _k = (0, react_1.useState)([]), searchUserList = _k[0], setSearchUserList = _k[1];
     return (React.createElement(exports.ProfileContext.Provider, { value: {
             profile: profile,
             setProfile: setProfile,
@@ -82020,6 +82014,8 @@ var ProfileProvider = function (_a) {
             setProfileLearnPostList: setProfileLearnPostList,
             userPostList: userPostList,
             setUserPostList: setUserPostList,
+            searchUserList: searchUserList,
+            setSearchUserList: setSearchUserList,
         } }, children));
 };
 exports.ProfileProvider = ProfileProvider;
@@ -84525,8 +84521,10 @@ exports.useSearch = void 0;
 var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var PostContext_1 = __webpack_require__(/*! ../../contexts/PostContext */ "./src/js/contexts/PostContext.tsx");
 var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/services/client.ts");
+var ProfileContext_1 = __webpack_require__(/*! ../../contexts/ProfileContext */ "./src/js/contexts/ProfileContext.tsx");
 var useSearch = function () {
     var _a = (0, react_1.useContext)(PostContext_1.PostContext), searchList = _a.searchList, setSearchList = _a.setSearchList;
+    var _b = (0, react_1.useContext)(ProfileContext_1.ProfileContext), searchUserList = _b.searchUserList, setSearchUserList = _b.setSearchUserList;
     var fetchSearchData = function (keyword) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_1;
         return __generator(this, function (_a) {
@@ -84538,7 +84536,8 @@ var useSearch = function () {
                         })];
                 case 1:
                     res = _a.sent();
-                    setSearchList(res.data); // 結果をContextに保存
+                    setSearchList(res.data.posts);
+                    setSearchUserList(res.data.users);
                     return [3 /*break*/, 3];
                 case 2:
                     e_1 = _a.sent();
@@ -84548,7 +84547,7 @@ var useSearch = function () {
             }
         });
     }); };
-    return { searchList: searchList, fetchSearchData: fetchSearchData };
+    return { searchList: searchList, searchUserList: searchUserList, fetchSearchData: fetchSearchData };
 };
 exports.useSearch = useSearch;
 
@@ -85022,50 +85021,52 @@ exports.useClickOutside = useClickOutside;
 /*!**********************************************!*\
   !*** ./src/js/hooks/utils/useHandleModal.ts ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.useHandleModal = void 0;
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var useHandleModal = function (_a) {
     var setIsOpen = _a.setIsOpen, setIsPostOpen = _a.setIsPostOpen, setIsEditOpen = _a.setIsEditOpen;
     var scrollDisabledAndModalOpen = function () {
-        /* 背景スクロール無効 */
         document.body.classList.add("over-hidden");
-        if (setIsOpen)
-            setIsOpen(true);
+        setIsOpen === null || setIsOpen === void 0 ? void 0 : setIsOpen(true);
     };
     var scrollValidAndModalClose = function () {
-        /* 背景スクロール有効 */
         document.body.classList.remove("over-hidden");
-        if (setIsOpen)
-            setIsOpen(false);
+        setIsOpen === null || setIsOpen === void 0 ? void 0 : setIsOpen(false);
     };
     var scrollDisabledAndPostModalOpen = function () {
-        /* 背景スクロール無効 */
         document.body.classList.add("over-hidden");
-        if (setIsPostOpen)
-            setIsPostOpen(true);
+        setIsPostOpen === null || setIsPostOpen === void 0 ? void 0 : setIsPostOpen(true);
     };
     var scrollValidAndPostModalClose = function () {
-        /* 背景スクロール有効 */
         document.body.classList.remove("over-hidden");
-        if (setIsPostOpen)
-            setIsPostOpen(false);
+        setIsPostOpen === null || setIsPostOpen === void 0 ? void 0 : setIsPostOpen(false);
     };
     var scrollDisabledAndEditModalOpen = function () {
-        /* 背景スクロール無効 */
         document.body.classList.add("over-hidden");
-        if (setIsEditOpen)
-            setIsEditOpen(true);
+        setIsEditOpen === null || setIsEditOpen === void 0 ? void 0 : setIsEditOpen(true);
     };
     var scrollValidAndEditModalClose = function () {
-        /* 背景スクロール有効 */
         document.body.classList.remove("over-hidden");
-        if (setIsEditOpen)
-            setIsEditOpen(false);
+        setIsEditOpen === null || setIsEditOpen === void 0 ? void 0 : setIsEditOpen(false);
     };
+    // 追加: 戻るボタン対応
+    (0, react_1.useEffect)(function () {
+        var handlePopState = function () {
+            // 全部閉じておく（開いてたものが閉じる）
+            document.body.classList.remove("over-hidden");
+            setIsOpen === null || setIsOpen === void 0 ? void 0 : setIsOpen(false);
+            setIsPostOpen === null || setIsPostOpen === void 0 ? void 0 : setIsPostOpen(false);
+            setIsEditOpen === null || setIsEditOpen === void 0 ? void 0 : setIsEditOpen(false);
+        };
+        window.addEventListener("popstate", handlePopState);
+        //クリーンアップ関数、アンマント時やステートが変わった時に実行される
+        return function () { return window.removeEventListener("popstate", handlePopState); };
+    }, [setIsOpen, setIsPostOpen, setIsEditOpen]);
     return {
         scrollDisabledAndModalOpen: scrollDisabledAndModalOpen,
         scrollValidAndModalClose: scrollValidAndModalClose,
@@ -86668,8 +86669,9 @@ var useSearch_1 = __webpack_require__(/*! ../../hooks/search/useSearch */ "./src
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var PostItem_1 = __webpack_require__(/*! ../../post/PostItem */ "./src/js/post/PostItem.tsx");
+var UserProfileItem_1 = __webpack_require__(/*! ../../post/UserProfileItem */ "./src/js/post/UserProfileItem.tsx");
 var Search = function () {
-    var _a = (0, useSearch_1.useSearch)(), searchList = _a.searchList, fetchSearchData = _a.fetchSearchData;
+    var _a = (0, useSearch_1.useSearch)(), searchList = _a.searchList, searchUserList = _a.searchUserList, fetchSearchData = _a.fetchSearchData;
     var location = (0, react_router_dom_1.useLocation)();
     var query = new URLSearchParams(location.search).get("q");
     (0, react_1.useEffect)(function () {
@@ -86681,7 +86683,7 @@ var Search = function () {
         React.createElement("main", { className: "main flex-item" },
             React.createElement("ul", { className: "main-container" },
                 React.createElement(TitleHead_1.TitleHead, null, "\u691C\u7D22\u7D50\u679C"),
-                searchList.length > 0 ? (searchList.map(function (post) { return React.createElement(PostItem_1.PostItem, { key: post.id, post: post }); })) : (React.createElement("p", { className: "mt-2" }, "\u8A72\u5F53\u3059\u308B\u6295\u7A3F\u306F\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002")))),
+                (searchList === null || searchList === void 0 ? void 0 : searchList.length) > 0 ? (searchList.map(function (post) { return React.createElement(PostItem_1.PostItem, { key: post.id, post: post }); })) : (searchUserList === null || searchUserList === void 0 ? void 0 : searchUserList.length) > 0 ? (searchUserList.map(function (user) { return React.createElement(UserProfileItem_1.UserProfileItem, { key: user.id, user: user }); })) : (React.createElement("p", { className: "mt-2" }, "\u8A72\u5F53\u3059\u308B\u6295\u7A3F\u30FB\u30E6\u30FC\u30B6\u30FC\u306F\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002")))),
         React.createElement(SidebarRight_1.SidebarRight, null)));
 };
 exports.Search = Search;
@@ -87859,6 +87861,75 @@ exports.UserPostList = UserPostList;
 
 /***/ }),
 
+/***/ "./src/js/post/UserProfileItem.tsx":
+/*!*****************************************!*\
+  !*** ./src/js/post/UserProfileItem.tsx ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UserProfileItem = void 0;
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var UserWithImageParts_1 = __webpack_require__(/*! ../components/parts/UserWithImageParts */ "./src/js/components/parts/UserWithImageParts.tsx");
+var AuthContext_1 = __webpack_require__(/*! ../contexts/AuthContext */ "./src/js/contexts/AuthContext.tsx");
+var useNavigation_1 = __webpack_require__(/*! ../hooks/utils/useNavigation */ "./src/js/hooks/utils/useNavigation.ts");
+var useHandleModal_1 = __webpack_require__(/*! ../hooks/utils/useHandleModal */ "./src/js/hooks/utils/useHandleModal.ts");
+var handleUserPage_1 = __webpack_require__(/*! ../utils/handleUserPage */ "./src/js/utils/handleUserPage.ts");
+var UserProfileItem = function (_a) {
+    var user = _a.user;
+    var currentUser = (0, react_1.useContext)(AuthContext_1.AuthContext).currentUser;
+    var handleNavigate = (0, useNavigation_1.useNavigation)().handleNavigate;
+    var setIsLoginModalOpen = (0, react_1.useContext)(AuthContext_1.AuthContext).setIsLoginModalOpen;
+    var scrollDisabledAndModalOpen = (0, useHandleModal_1.useHandleModal)({
+        setIsOpen: setIsLoginModalOpen,
+    }).scrollDisabledAndModalOpen;
+    var handleClick = function () {
+        (0, handleUserPage_1.handleUserPage)({ userId: user.id, currentUser: currentUser, handleNavigate: handleNavigate, scrollDisabledAndModalOpen: scrollDisabledAndModalOpen });
+    };
+    return (react_1.default.createElement("li", { onClick: handleClick, className: "article border cursor-pointer btn" },
+        react_1.default.createElement(UserWithImageParts_1.UserWithImageParts, { src: user.avatarUrl, className: "ml-2", userName: user.userName, userId: user.userUserName, onClick: handleClick }),
+        react_1.default.createElement("p", { className: "mt-3" }, user.bio)));
+};
+exports.UserProfileItem = UserProfileItem;
+
+
+/***/ }),
+
 /***/ "./src/js/post/postLearnTemplate.ts":
 /*!******************************************!*\
   !*** ./src/js/post/postLearnTemplate.ts ***!
@@ -88275,6 +88346,35 @@ var getUserName = function (_a) {
     }
 };
 exports.getUserName = getUserName;
+
+
+/***/ }),
+
+/***/ "./src/js/utils/handleUserPage.ts":
+/*!****************************************!*\
+  !*** ./src/js/utils/handleUserPage.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.handleUserPage = void 0;
+var handleUserPage = function (_a) {
+    var userId = _a.userId, currentUser = _a.currentUser, handleNavigate = _a.handleNavigate, scrollDisabledAndModalOpen = _a.scrollDisabledAndModalOpen;
+    if (currentUser) {
+        if ((currentUser === null || currentUser === void 0 ? void 0 : currentUser.id) === userId) {
+            handleNavigate("/my-page");
+        }
+        else {
+            handleNavigate("/users/".concat(userId));
+        }
+    }
+    else {
+        scrollDisabledAndModalOpen();
+    }
+};
+exports.handleUserPage = handleUserPage;
 
 
 /***/ }),
@@ -101847,7 +101947,7 @@ function __rewriteRelativeImportExtension(path, preserveJsx) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("9bbe9dde2c057242e5e7")
+/******/ 		__webpack_require__.h = () => ("a4686b31a8461123705e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

@@ -21,6 +21,8 @@ type ProfileContextType = {
   setProfileLearnPostList: React.Dispatch<React.SetStateAction<Post[]>>;
   userPostList: Post[];
   setUserPostList: React.Dispatch<React.SetStateAction<Post[]>>;
+  searchUserList: UserProfile[];
+  setSearchUserList: React.Dispatch<React.SetStateAction<UserProfile[]>>;
 };
 
 export const ProfileContext = createContext<ProfileContextType>({
@@ -40,6 +42,8 @@ export const ProfileContext = createContext<ProfileContextType>({
   setProfileLearnPostList: () => {},
   userPostList: [],
   setUserPostList: () => {},
+  searchUserList: [],
+  setSearchUserList: () => {},
 });
 
 export const ProfileProvider = ({ children }: PropsWithChildren) => {
@@ -51,6 +55,7 @@ export const ProfileProvider = ({ children }: PropsWithChildren) => {
   const [profileLikedPostList, setProfileLikedPostList] = useState<Post[]>([]);
   const [profileLearnPostList, setProfileLearnPostList] = useState<Post[]>([]);
   const [userPostList, setUserPostList] = useState<Post[]>([]);
+  const [searchUserList, setSearchUserList] = useState<UserProfile[]>([]);
 
   return (
     <ProfileContext.Provider
@@ -71,6 +76,8 @@ export const ProfileProvider = ({ children }: PropsWithChildren) => {
         setProfileLearnPostList,
         userPostList,
         setUserPostList,
+        searchUserList,
+        setSearchUserList,
       }}
     >
       {children}
