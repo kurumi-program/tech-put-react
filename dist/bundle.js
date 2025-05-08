@@ -30875,7 +30875,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746325761972
+        // 1746626139911
         var cssReload = __webpack_require__(/*! ../../mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -30910,7 +30910,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746534836556
+        // 1746708255478
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -30945,7 +30945,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746538540799
+        // 1746711473775
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -82573,7 +82573,9 @@ var useLogin = function () {
                         scrollValidAndModalClose();
                         setFlashMessage(isSignUp ? "サインアップに成功しました" : "ログインに成功しました");
                         setTimeout(function () {
-                            window.location.reload();
+                            setFlashMessage("");
+                            //リロードは一旦いいや
+                            // window.location.reload();
                         }, 2000);
                         console.log("ログイン成功");
                         setEmail("");
@@ -84084,7 +84086,7 @@ var ProfileContext_1 = __webpack_require__(/*! ../../contexts/ProfileContext */ 
 var authService_1 = __webpack_require__(/*! ../../services/authService */ "./src/js/services/authService.ts");
 var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/services/client.ts");
 var useProfileEdit = function (_a) {
-    var name = _a.name, bio = _a.bio, avatar = _a.avatar;
+    var name = _a.name, bio = _a.bio, avatar = _a.avatar, githubUrl = _a.githubUrl;
     var _b = (0, react_1.useContext)(ProfileContext_1.ProfileContext), profile = _b.profile, setProfile = _b.setProfile;
     var handleEditSubmit = function () { return __awaiter(void 0, void 0, void 0, function () {
         var formData, res, e_1;
@@ -84095,6 +84097,7 @@ var useProfileEdit = function (_a) {
                     formData = new FormData();
                     formData.append("profile[name]", name);
                     formData.append("profile[bio]", bio);
+                    formData.append("profile[githubUrl]", githubUrl);
                     if (avatar) {
                         formData.append("profile[avatar]", avatar);
                     }
@@ -86330,7 +86333,7 @@ var Profile = function () {
     };
     return (React.createElement("div", { className: "layout" },
         React.createElement(SidebarLeft_1.SidebarLeft, null),
-        React.createElement(ProfileLayout_1.ProfileLayout, { userAvatarUrl: profile === null || profile === void 0 ? void 0 : profile.avatarUrl, userName: profile === null || profile === void 0 ? void 0 : profile.userName, userEmail: profile === null || profile === void 0 ? void 0 : profile.email, userUserName: profile === null || profile === void 0 ? void 0 : profile.userUserName, userPostCount: profile === null || profile === void 0 ? void 0 : profile.postCount, userBio: profile === null || profile === void 0 ? void 0 : profile.bio, onModalClick: scrollDisabledAndEditModalOpen, myPage: true, onPostClick: function () { return (0, scrollToSection_1.scrollToSection)({ scrollRef: scrollRef }); }, followingsCount: profile === null || profile === void 0 ? void 0 : profile.followingsCount, followersCount: profile === null || profile === void 0 ? void 0 : profile.followersCount, handleFollowingsClick: function () { return handleNavigate("/my-page/following"); }, handleFollowersClick: function () { return handleNavigate("/my-page/followers"); } },
+        React.createElement(ProfileLayout_1.ProfileLayout, { userAvatarUrl: profile === null || profile === void 0 ? void 0 : profile.avatarUrl, userName: profile === null || profile === void 0 ? void 0 : profile.userName, userEmail: profile === null || profile === void 0 ? void 0 : profile.email, userUserName: profile === null || profile === void 0 ? void 0 : profile.userUserName, userPostCount: profile === null || profile === void 0 ? void 0 : profile.postCount, userBio: profile === null || profile === void 0 ? void 0 : profile.bio, githubUrl: profile === null || profile === void 0 ? void 0 : profile.githubUrl, onModalClick: scrollDisabledAndEditModalOpen, myPage: true, onPostClick: function () { return (0, scrollToSection_1.scrollToSection)({ scrollRef: scrollRef }); }, followingsCount: profile === null || profile === void 0 ? void 0 : profile.followingsCount, followersCount: profile === null || profile === void 0 ? void 0 : profile.followersCount, handleFollowingsClick: function () { return handleNavigate("/my-page/following"); }, handleFollowersClick: function () { return handleNavigate("/my-page/followers"); } },
             React.createElement("ul", { className: "main-container", ref: scrollRef },
                 React.createElement("div", { className: "flex tab-pointer" },
                     React.createElement("h2", { className: "font-bold articles-title ml-1 ".concat(activeTab === "all" && "tab-active"), onClick: function () { return handleTabClick("all"); } }, "All"),
@@ -86403,22 +86406,27 @@ var ProfileEditForm = function (_a) {
     var _c = (0, react_1.useState)(""), editBio = _c[0], setEditBio = _c[1];
     var _d = (0, react_1.useState)(null), editAvatar = _d[0], setEditAvatar = _d[1];
     var _e = (0, react_1.useState)(null), previewUrl = _e[0], setPreviewUrl = _e[1];
-    var _f = (0, react_1.useState)(false), errorText = _f[0], setErrorText = _f[1];
+    var _f = (0, react_1.useState)(""), editGithubUrl = _f[0], setEditGithubUrl = _f[1];
+    var _g = (0, react_1.useState)(false), errorText = _g[0], setErrorText = _g[1];
+    var _h = (0, react_1.useState)(false), githubUrlError = _h[0], setGithubUrlError = _h[1];
     var scrollValidAndEditModalClose = (0, useHandleModal_1.useHandleModal)({
         setIsEditOpen: setIsEditOpen,
     }).scrollValidAndEditModalClose;
-    var _g = (0, useProfileEdit_1.useProfileEdit)({
+    var _j = (0, useProfileEdit_1.useProfileEdit)({
         name: editName,
         bio: editBio,
         avatar: editAvatar,
-    }), profile = _g.profile, handleEditSubmit = _g.handleEditSubmit;
-    (0, react_1.useEffect)(function () {
-        if (profile) {
-            setEditName(profile.userName || "");
-            setEditBio(profile.bio || "");
-            setPreviewUrl(profile.avatarUrl || null);
+        githubUrl: editGithubUrl,
+    }), profile = _j.profile, handleEditSubmit = _j.handleEditSubmit;
+    var isValidUrl = function (url) {
+        try {
+            var parsed = new URL(url);
+            return parsed.protocol === "https:" || parsed.protocol === "http:";
         }
-    }, [profile]);
+        catch (_a) {
+            return false;
+        }
+    };
     var handleAvatarChange = function (e) {
         var _a;
         var file = ((_a = e.target.files) === null || _a === void 0 ? void 0 : _a[0]) || null;
@@ -86428,16 +86436,31 @@ var ProfileEditForm = function (_a) {
         }
     };
     var handleSubmit = function (e) {
+        e.preventDefault();
         if (!editName.trim()) {
-            e.preventDefault();
-            setErrorText(true); // ← 名前が空欄ならエラー表示
+            //名前が空欄ならエラー表示
+            setErrorText(true);
             return;
         }
+        if (editGithubUrl && !isValidUrl(editGithubUrl)) {
+            //有効なurlじゃなければエラー表示
+            setGithubUrlError(true);
+            return;
+        }
+        //エラーメッセージのリセット
         setErrorText(false);
-        e.preventDefault();
+        setGithubUrlError(false);
         handleEditSubmit();
         scrollValidAndEditModalClose();
     };
+    (0, react_1.useEffect)(function () {
+        if (profile) {
+            setEditName(profile.userName || "");
+            setEditBio(profile.bio || "");
+            setEditGithubUrl(profile.githubUrl || "");
+            setPreviewUrl(profile.avatarUrl || null);
+        }
+    }, [profile]);
     return (react_1.default.createElement("div", { className: "form-bg", onClick: onClick },
         react_1.default.createElement("div", { className: "form-container profile-container", onClick: function (e) { return e.stopPropagation(); } },
             react_1.default.createElement("i", { onClick: onClick, className: "form-icon fa-solid fa-xmark", id: "modal-close" }),
@@ -86453,7 +86476,11 @@ var ProfileEditForm = function (_a) {
                     errorText && react_1.default.createElement("p", { className: "text-red-600 error-txt" }, "\u30E6\u30FC\u30B6\u30FC\u540D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002")),
                 react_1.default.createElement("div", null,
                     react_1.default.createElement("p", { className: "profile-form-title" }, "\u81EA\u5DF1\u7D39\u4ECB"),
-                    react_1.default.createElement("textarea", { className: "border", value: editBio, onChange: function (e) { return setEditBio(e.target.value); } })),
+                    react_1.default.createElement("textarea", { className: "border block", value: editBio, onChange: function (e) { return setEditBio(e.target.value); } })),
+                react_1.default.createElement("div", null,
+                    react_1.default.createElement("p", { className: "profile-form-title" }, "github\u306Eurl"),
+                    react_1.default.createElement("input", { className: "border", type: "text", value: editGithubUrl, onChange: function (e) { return setEditGithubUrl(e.target.value); } }),
+                    githubUrlError && (react_1.default.createElement("p", { className: "text-red-600 error-txt" }, "\u6709\u52B9\u306AURL\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"))),
                 react_1.default.createElement("div", { className: "form-submit" },
                     react_1.default.createElement(FormButton_1.FormButton, { className: "form-btn-radius" }, "\u4FDD\u5B58"))))));
 };
@@ -86761,7 +86788,7 @@ var UserProfile = function () {
         return null;
     return (React.createElement("div", { className: "layout" },
         React.createElement(SidebarLeft_1.SidebarLeft, null),
-        React.createElement(ProfileLayout_1.ProfileLayout, { userAvatarUrl: userProfile === null || userProfile === void 0 ? void 0 : userProfile.avatarUrl, userName: userProfile === null || userProfile === void 0 ? void 0 : userProfile.userName, userEmail: userProfile === null || userProfile === void 0 ? void 0 : userProfile.email, userUserName: userProfile === null || userProfile === void 0 ? void 0 : userProfile.userUserName, userPostCount: userProfile === null || userProfile === void 0 ? void 0 : userProfile.postCount, userBio: userProfile === null || userProfile === void 0 ? void 0 : userProfile.bio, onPostClick: function () { return (0, scrollToSection_1.scrollToSection)({ scrollRef: scrollRef }); }, onFollowClick: handleFollow, onUnfollowClick: handleUnfollow, followingsCount: follow === null || follow === void 0 ? void 0 : follow.followingsCount, followersCount: follow === null || follow === void 0 ? void 0 : follow.followersCount, isFollowed: isFollowed, handleFollowingsClick: function () { return handleNavigate("/users/".concat(id, "/following")); }, handleFollowersClick: function () { return handleNavigate("/users/".concat(id, "/followers")); } }, (userProfile === null || userProfile === void 0 ? void 0 : userProfile.userId) && Number(userProfile.postCount) > 0 ? (React.createElement("ul", { className: "main-container", ref: scrollRef },
+        React.createElement(ProfileLayout_1.ProfileLayout, { userAvatarUrl: userProfile === null || userProfile === void 0 ? void 0 : userProfile.avatarUrl, userName: userProfile === null || userProfile === void 0 ? void 0 : userProfile.userName, userEmail: userProfile === null || userProfile === void 0 ? void 0 : userProfile.email, userUserName: userProfile === null || userProfile === void 0 ? void 0 : userProfile.userUserName, userPostCount: userProfile === null || userProfile === void 0 ? void 0 : userProfile.postCount, userBio: userProfile === null || userProfile === void 0 ? void 0 : userProfile.bio, githubUrl: userProfile === null || userProfile === void 0 ? void 0 : userProfile.githubUrl, onPostClick: function () { return (0, scrollToSection_1.scrollToSection)({ scrollRef: scrollRef }); }, onFollowClick: handleFollow, onUnfollowClick: handleUnfollow, followingsCount: follow === null || follow === void 0 ? void 0 : follow.followingsCount, followersCount: follow === null || follow === void 0 ? void 0 : follow.followersCount, isFollowed: isFollowed, handleFollowingsClick: function () { return handleNavigate("/users/".concat(id, "/following")); }, handleFollowersClick: function () { return handleNavigate("/users/".concat(id, "/followers")); } }, (userProfile === null || userProfile === void 0 ? void 0 : userProfile.userId) && Number(userProfile.postCount) > 0 ? (React.createElement("ul", { className: "main-container", ref: scrollRef },
             React.createElement("h2", { className: "font-bold articles-title ml-1" }, "\u6295\u7A3F"),
             React.createElement(UserPostList_1.UserPostList, { userId: userProfile.userId }))) : (React.createElement("ul", { className: "main-container", ref: scrollRef },
             React.createElement("li", null, "\u6295\u7A3F\u306F\u3042\u308A\u307E\u305B\u3093")))),
@@ -87490,16 +87517,20 @@ var default_avatar_png_1 = __importDefault(__webpack_require__(/*! ../../assets/
 var UserParts_1 = __webpack_require__(/*! ../components/parts/UserParts */ "./src/js/components/parts/UserParts.tsx");
 var FormButton_1 = __webpack_require__(/*! ../components/parts/FormButton */ "./src/js/components/parts/FormButton.tsx");
 var ProfileFollowButton_1 = __webpack_require__(/*! ../components/parts/ProfileFollowButton */ "./src/js/components/parts/ProfileFollowButton.tsx");
+var github_mark_png_1 = __importDefault(__webpack_require__(/*! ../../assets/images/github-mark.png */ "./src/assets/images/github-mark.png"));
 var ProfileLayout = function (_a) {
     var _b;
-    var userAvatarUrl = _a.userAvatarUrl, userName = _a.userName, userEmail = _a.userEmail, userUserName = _a.userUserName, userPostCount = _a.userPostCount, userBio = _a.userBio, _c = _a.myPage, myPage = _c === void 0 ? false : _c, onModalClick = _a.onModalClick, onPostClick = _a.onPostClick, onFollowClick = _a.onFollowClick, onUnfollowClick = _a.onUnfollowClick, handleFollowingsClick = _a.handleFollowingsClick, handleFollowersClick = _a.handleFollowersClick, isFollowed = _a.isFollowed, followingsCount = _a.followingsCount, followersCount = _a.followersCount, children = _a.children;
+    var userAvatarUrl = _a.userAvatarUrl, userName = _a.userName, userEmail = _a.userEmail, userUserName = _a.userUserName, userPostCount = _a.userPostCount, userBio = _a.userBio, _c = _a.myPage, myPage = _c === void 0 ? false : _c, onModalClick = _a.onModalClick, onPostClick = _a.onPostClick, onFollowClick = _a.onFollowClick, onUnfollowClick = _a.onUnfollowClick, handleFollowingsClick = _a.handleFollowingsClick, handleFollowersClick = _a.handleFollowersClick, isFollowed = _a.isFollowed, followingsCount = _a.followingsCount, followersCount = _a.followersCount, children = _a.children, githubUrl = _a.githubUrl;
     return (react_1.default.createElement("main", { className: "main flex-item" },
         react_1.default.createElement("div", { className: "article border main-container" },
             react_1.default.createElement("div", { className: "text-center" },
                 react_1.default.createElement("div", { className: "profile-avatar" },
                     react_1.default.createElement("img", { className: "btn", src: userAvatarUrl || default_avatar_png_1.default, alt: "avatar preview" }))),
             react_1.default.createElement(UserParts_1.UserParts, { classNameWrapper: "justify-center", className: "text-center", userClassName: "profile-user-name font-bold", userIdClassName: "profile-user-id", userName: (_b = userName !== null && userName !== void 0 ? userName : userEmail === null || userEmail === void 0 ? void 0 : userEmail.split("@")[0]) !== null && _b !== void 0 ? _b : "unknown", userId: userUserName !== null && userUserName !== void 0 ? userUserName : "" }),
-            react_1.default.createElement("ul", { className: "pt-4 mt-8 stat-item text-center border-t flex" },
+            githubUrl && (react_1.default.createElement("div", { className: "text-center image-wrapper" },
+                react_1.default.createElement("a", { href: githubUrl, className: "github-url btn", target: "_blank", rel: "noopener noreferrer" },
+                    react_1.default.createElement("img", { src: github_mark_png_1.default, alt: "github icon" })))),
+            react_1.default.createElement("ul", { className: "pt-4 mt-[30px] stat-item text-center border-t flex" },
                 react_1.default.createElement("li", { onClick: onPostClick },
                     react_1.default.createElement("p", { className: "stat-number" }, userPostCount),
                     react_1.default.createElement("p", { className: "stat-label" }, "\u6295\u7A3F\u6570")),
@@ -92856,6 +92887,17 @@ module.exports.formatError = function (err) {
 
 "use strict";
 module.exports = __webpack_require__.p + "5c6737480b75fffd15c5.png";
+
+/***/ }),
+
+/***/ "./src/assets/images/github-mark.png":
+/*!*******************************************!*\
+  !*** ./src/assets/images/github-mark.png ***!
+  \*******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "3524c849ab38de4be923.png";
 
 /***/ }),
 
@@ -101947,7 +101989,7 @@ function __rewriteRelativeImportExtension(path, preserveJsx) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("a4686b31a8461123705e")
+/******/ 		__webpack_require__.h = () => ("67e0880a869a63766e89")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

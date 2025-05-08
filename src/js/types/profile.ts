@@ -6,6 +6,7 @@ export type Profile = {
   email: string;
   bio: string;
   avatarUrl: string | null;
+  githubUrl: string;
   postCount: number;
   hasLikedPosts: boolean;
   learnCount: number;

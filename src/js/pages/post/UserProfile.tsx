@@ -39,6 +39,7 @@ export const UserProfile = () => {
         userUserName={userProfile?.userUserName}
         userPostCount={userProfile?.postCount}
         userBio={userProfile?.bio}
+        githubUrl={userProfile?.githubUrl}
         onPostClick={() => scrollToSection({ scrollRef })}
         onFollowClick={handleFollow}
         onUnfollowClick={handleUnfollow}

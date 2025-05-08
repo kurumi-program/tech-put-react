@@ -42,6 +42,7 @@ export const Profile = () => {
         userUserName={profile?.userUserName}
         userPostCount={profile?.postCount}
         userBio={profile?.bio}
+        githubUrl={profile?.githubUrl}
         onModalClick={scrollDisabledAndEditModalOpen}
         myPage={true}
         onPostClick={() => scrollToSection({ scrollRef })}

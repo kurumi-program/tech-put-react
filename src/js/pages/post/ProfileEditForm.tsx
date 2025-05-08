@@ -14,7 +14,9 @@ export const ProfileEditForm = ({ onClick, setIsEditOpen }: Props) => {
   const [editBio, setEditBio] = useState("");
   const [editAvatar, setEditAvatar] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [editGithubUrl, setEditGithubUrl] = useState<string>("");
   const [errorText, setErrorText] = useState<boolean>(false);
+  const [githubUrlError, setGithubUrlError] = useState<boolean>(false);
   const { scrollValidAndEditModalClose } = useHandleModal({
     setIsEditOpen,
   });
@@ -23,15 +25,17 @@ export const ProfileEditForm = ({ onClick, setIsEditOpen }: Props) => {
     name: editName,
     bio: editBio,
     avatar: editAvatar,
+    githubUrl: editGithubUrl,
   });
 
-  useEffect(() => {
-    if (profile) {
-      setEditName(profile.userName || "");
-      setEditBio(profile.bio || "");
-      setPreviewUrl(profile.avatarUrl || null);
+  const isValidUrl = (url: string): boolean => {
+    try {
+      const parsed = new URL(url);
+      return parsed.protocol === "https:" || parsed.protocol === "http:";
+    } catch {
+      return false;
     }
-  }, [profile]);
+  };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -42,16 +46,34 @@ export const ProfileEditForm = ({ onClick, setIsEditOpen }: Props) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
     if (!editName.trim()) {
-      e.preventDefault();
-      setErrorText(true); // ← 名前が空欄ならエラー表示
+      //名前が空欄ならエラー表示
+      setErrorText(true);
       return;
     }
+    if (editGithubUrl && !isValidUrl(editGithubUrl)) {
+      //有効なurlじゃなければエラー表示
+      setGithubUrlError(true);
+      return;
+    }
+    //エラーメッセージのリセット
     setErrorText(false);
-    e.preventDefault();
+    setGithubUrlError(false);
+
     handleEditSubmit();
     scrollValidAndEditModalClose();
   };
+
+  useEffect(() => {
+    if (profile) {
+      setEditName(profile.userName || "");
+      setEditBio(profile.bio || "");
+      setEditGithubUrl(profile.githubUrl || "");
+      setPreviewUrl(profile.avatarUrl || null);
+    }
+  }, [profile]);
 
   return (
     <div className="form-bg" onClick={onClick}>
@@ -84,10 +106,22 @@ export const ProfileEditForm = ({ onClick, setIsEditOpen }: Props) => {
           <div>
             <p className="profile-form-title">自己紹介</p>
             <textarea
-              className="border"
+              className="border block"
               value={editBio}
               onChange={(e) => setEditBio(e.target.value)}
             />
+          </div>
+          <div>
+            <p className="profile-form-title">githubのurl</p>
+            <input
+              className="border"
+              type="text"
+              value={editGithubUrl}
+              onChange={(e) => setEditGithubUrl(e.target.value)}
+            />
+            {githubUrlError && (
+              <p className="text-red-600 error-txt">有効なURLを入力してください。</p>
+            )}
           </div>
           <div className="form-submit">
             <FormButton className="form-btn-radius">保存</FormButton>

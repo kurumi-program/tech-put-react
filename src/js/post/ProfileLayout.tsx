@@ -3,6 +3,8 @@ import defaultAvatar from "../../assets/images/default-avatar.png";
 import { UserParts } from "../components/parts/UserParts";
 import { FormButton } from "../components/parts/FormButton";
 import { ProfileFollowButton } from "../components/parts/ProfileFollowButton";
+import githubIcon from "../../assets/images/github-mark.png";
+import { Link } from "react-router-dom";
 
 type Props = {
   userAvatarUrl?: string | null;
@@ -21,6 +23,7 @@ type Props = {
   isFollowed?: boolean;
   followingsCount?: number;
   followersCount?: number;
+  githubUrl?: string;
 };
 
 export const ProfileLayout = ({
@@ -41,6 +44,7 @@ export const ProfileLayout = ({
   followingsCount,
   followersCount,
   children,
+  githubUrl,
 }: PropsWithChildren<Props>) => {
   return (
     <main className="main flex-item">
@@ -58,7 +62,20 @@ export const ProfileLayout = ({
           userName={userName ?? userEmail?.split("@")[0] ?? "unknown"}
           userId={userUserName ?? ""}
         />
-        <ul className="pt-4 mt-8 stat-item text-center border-t flex">
+        {githubUrl && (
+          <div className="text-center image-wrapper">
+            <a
+              href={githubUrl}
+              className="github-url btn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={githubIcon} alt="github icon" />
+            </a>
+          </div>
+        )}
+
+        <ul className="pt-4 mt-[30px] stat-item text-center border-t flex">
           <li onClick={onPostClick}>
             <p className="stat-number">{userPostCount}</p>
             <p className="stat-label">投稿数</p>

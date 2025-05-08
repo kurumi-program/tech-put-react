@@ -948,6 +948,20 @@ header {
   line-height: 1.2;
 }
 
+.image-wrapper {
+  line-height: 1;
+  margin-top: 20px;
+}
+
+.github-url {
+  display: inline-block;
+}
+
+.github-url img {
+  width: 20px;
+  height: 20px;
+}
+
 .stat-item {
   justify-content: center;
 }

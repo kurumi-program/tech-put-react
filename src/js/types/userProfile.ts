@@ -6,5 +6,6 @@ export type UserProfile = {
   email: string;
   bio: string;
   avatarUrl: string | null;
+  githubUrl: string;
   postCount: number;
 };

@@ -7,15 +7,17 @@ type Props = {
   name: string;
   bio: string;
   avatar: File | null;
+  githubUrl: string;
 };
 
-export const useProfileEdit = ({ name, bio, avatar }: Props) => {
+export const useProfileEdit = ({ name, bio, avatar, githubUrl }: Props) => {
   const { profile, setProfile } = useContext(ProfileContext);
   const handleEditSubmit = async () => {
     try {
       const formData = new FormData();
       formData.append("profile[name]", name);
       formData.append("profile[bio]", bio);
+      formData.append("profile[githubUrl]", githubUrl);
       if (avatar) {
         formData.append("profile[avatar]", avatar);
       }

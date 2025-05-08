@@ -67,7 +67,9 @@ export const useLogin = () => {
 
         setFlashMessage(isSignUp ? "サインアップに成功しました" : "ログインに成功しました");
         setTimeout(() => {
-          window.location.reload();
+          setFlashMessage("");
+          //リロードは一旦いいや
+          // window.location.reload();
         }, 2000);
         console.log("ログイン成功");
 
