@@ -7,12 +7,11 @@ export const StockList = () => {
 
   return (
     <>
-      {stockList
-        .slice()
-        .reverse()
-        .map((post) => (
-          <PostItem key={post.id} post={post} />
-        ))}
+      {stockList.length > 0 ? (
+        stockList.map((post) => <PostItem key={post.id} post={post} />)
+      ) : (
+        <p className="mt-5">ストックはありません</p>
+      )}
     </>
   );
 };

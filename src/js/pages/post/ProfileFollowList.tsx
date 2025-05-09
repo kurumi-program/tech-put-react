@@ -8,9 +8,8 @@ import { useContext, useEffect } from "react";
 import { useNavigation } from "../../hooks/utils/useNavigation";
 import { AuthContext } from "../../contexts/AuthContext";
 
-
 export const ProfileFollowList = () => {
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
   const { handleNavigate } = useNavigation();
   const userId = currentUser?.id ?? "";
 
@@ -28,7 +27,7 @@ export const ProfileFollowList = () => {
       <main className="main flex-item">
         <div className="main-container">
           <TitleHead>フォロー</TitleHead>
-          {followList.length > 0 && (
+          {followList.length > 0 ? (
             <div className="follow-article border">
               <ul>
                 {followList.map((follow) => (
@@ -44,6 +43,8 @@ export const ProfileFollowList = () => {
                 ))}
               </ul>
             </div>
+          ) : (
+            <p className="mt-5">フォロ-しているユーザーはいません</p>
           )}
         </div>
       </main>

@@ -23,7 +23,7 @@ export const FollowerList = () => {
       <main className="main flex-item">
         <div className="main-container">
           <TitleHead>フォロワー</TitleHead>
-          {followerList.length > 0 && (
+          {followerList.length > 0 ? (
             <div className="follow-article border">
               <ul>
                 {followerList.map((follower) => (
@@ -39,6 +39,8 @@ export const FollowerList = () => {
                 ))}
               </ul>
             </div>
+          ) : (
+            <p className="mt-5">フォロワーはいません</p>
           )}
         </div>
       </main>

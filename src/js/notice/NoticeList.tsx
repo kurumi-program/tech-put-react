@@ -8,9 +8,11 @@ export const NoticeList = () => {
   return (
     <ul className="main-container">
       <TitleHead>通知一覧</TitleHead>
-      {noticeList.map((notice) => (
-        <NoticeItem notice={notice} key={notice.id} />
-      ))}
+      {noticeList.length > 0 ? (
+        noticeList.map((notice) => <NoticeItem notice={notice} key={notice.id} />)
+      ) : (
+        <p className="mt-5">通知はありません</p>
+      )}
     </ul>
   );
 };

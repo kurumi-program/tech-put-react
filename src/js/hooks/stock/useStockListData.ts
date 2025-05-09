@@ -4,7 +4,7 @@ import { authHeaders } from "../../services/authService";
 import { client } from "../../services/client";
 
 export const useStockListData = () => {
-  const { setIsLoading, stockList, setStockList } = useContext(PostContext);
+  const { isLoading, setIsLoading, stockList, setStockList } = useContext(PostContext);
 
   const fetchStockedPosts = async () => {
     setIsLoading(true);
@@ -24,5 +24,5 @@ export const useStockListData = () => {
     fetchStockedPosts();
   }, []);
 
-  return {stockList};
+  return { stockList, isLoading };
 };

@@ -28,7 +28,7 @@ export const Search = () => {
           ) : searchUserList?.length > 0 ? (
             searchUserList.map((user) => <UserProfileItem key={user.id} user={user} />)
           ) : (
-            <p className="mt-2">該当する投稿・ユーザーは見つかりませんでした。</p>
+            <p className="mt-5">該当する投稿・ユーザーは見つかりませんでした。</p>
           )}
         </ul>
       </main>

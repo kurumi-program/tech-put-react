@@ -30945,7 +30945,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1746711473775
+        // 1746799622834
         var cssReload = __webpack_require__(/*! ../../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {});
         // only invalidate when locals change
         if (
@@ -84773,7 +84773,7 @@ var PostContext_1 = __webpack_require__(/*! ../../contexts/PostContext */ "./src
 var authService_1 = __webpack_require__(/*! ../../services/authService */ "./src/js/services/authService.ts");
 var client_1 = __webpack_require__(/*! ../../services/client */ "./src/js/services/client.ts");
 var useStockListData = function () {
-    var _a = (0, react_1.useContext)(PostContext_1.PostContext), setIsLoading = _a.setIsLoading, stockList = _a.stockList, setStockList = _a.setStockList;
+    var _a = (0, react_1.useContext)(PostContext_1.PostContext), isLoading = _a.isLoading, setIsLoading = _a.setIsLoading, stockList = _a.stockList, setStockList = _a.setStockList;
     var fetchStockedPosts = function () { return __awaiter(void 0, void 0, void 0, function () {
         var res, error_1;
         return __generator(this, function (_a) {
@@ -84804,7 +84804,7 @@ var useStockListData = function () {
     (0, react_1.useEffect)(function () {
         fetchStockedPosts();
     }, []);
-    return { stockList: stockList };
+    return { stockList: stockList, isLoading: isLoading };
 };
 exports.useStockListData = useStockListData;
 
@@ -85290,7 +85290,7 @@ var NoticeList = function () {
     var noticeList = (0, useNoticeData_1.useNoticeData)().noticeList;
     return (react_1.default.createElement("ul", { className: "main-container" },
         react_1.default.createElement(TitleHead_1.TitleHead, null, "\u901A\u77E5\u4E00\u89A7"),
-        noticeList.map(function (notice) { return (react_1.default.createElement(NoticeItem_1.NoticeItem, { notice: notice, key: notice.id })); })));
+        noticeList.length > 0 ? (noticeList.map(function (notice) { return react_1.default.createElement(NoticeItem_1.NoticeItem, { notice: notice, key: notice.id }); })) : (react_1.default.createElement("p", { className: "mt-5" }, "\u901A\u77E5\u306F\u3042\u308A\u307E\u305B\u3093"))));
 };
 exports.NoticeList = NoticeList;
 
@@ -85809,8 +85809,8 @@ var FollowList = function () {
         React.createElement("main", { className: "main flex-item" },
             React.createElement("div", { className: "main-container" },
                 React.createElement(TitleHead_1.TitleHead, null, "\u30D5\u30A9\u30ED\u30FC"),
-                followList.length > 0 && (React.createElement("div", { className: "follow-article border" },
-                    React.createElement("ul", null, followList.map(function (follow) { return (React.createElement(RelationItem_1.RelationItem, { key: follow.id, id: follow.id, onNavigateClick: function () { return handleNavigate("/users/".concat(follow.id)); }, userName: follow.name, userUserName: follow.username, userBio: follow.bio, userAvatarUrl: follow.avatarUrl })); })))))),
+                followList.length > 0 ? (React.createElement("div", { className: "follow-article border" },
+                    React.createElement("ul", null, followList.map(function (follow) { return (React.createElement(RelationItem_1.RelationItem, { key: follow.id, id: follow.id, onNavigateClick: function () { return handleNavigate("/users/".concat(follow.id)); }, userName: follow.name, userUserName: follow.username, userBio: follow.bio, userAvatarUrl: follow.avatarUrl })); })))) : (React.createElement("p", { className: "mt-5" }, "\u30D5\u30A9\u30ED-\u3057\u3066\u3044\u308B\u30E6\u30FC\u30B6\u30FC\u306F\u3044\u307E\u305B\u3093")))),
         React.createElement(SidebarRight_1.SidebarRight, null)));
 };
 exports.FollowList = FollowList;
@@ -85883,8 +85883,8 @@ var FollowerList = function () {
         React.createElement("main", { className: "main flex-item" },
             React.createElement("div", { className: "main-container" },
                 React.createElement(TitleHead_1.TitleHead, null, "\u30D5\u30A9\u30ED\u30EF\u30FC"),
-                followerList.length > 0 && (React.createElement("div", { className: "follow-article border" },
-                    React.createElement("ul", null, followerList.map(function (follower) { return (React.createElement(RelationItem_1.RelationItem, { key: follower.id, id: follower.id, onNavigateClick: function () { return handleNavigate("/users/".concat(follower.id)); }, userName: follower.name, userUserName: follower.username, userBio: follower.bio, userAvatarUrl: follower.avatarUrl })); })))))),
+                followerList.length > 0 ? (React.createElement("div", { className: "follow-article border" },
+                    React.createElement("ul", null, followerList.map(function (follower) { return (React.createElement(RelationItem_1.RelationItem, { key: follower.id, id: follower.id, onNavigateClick: function () { return handleNavigate("/users/".concat(follower.id)); }, userName: follower.name, userUserName: follower.username, userBio: follower.bio, userAvatarUrl: follower.avatarUrl })); })))) : (React.createElement("p", { className: "mt-5" }, "\u30D5\u30A9\u30ED\u30EF\u30FC\u306F\u3044\u307E\u305B\u3093")))),
         React.createElement(SidebarRight_1.SidebarRight, null)));
 };
 exports.FollowerList = FollowerList;
@@ -86558,8 +86558,8 @@ var ProfileFollowList = function () {
         React.createElement("main", { className: "main flex-item" },
             React.createElement("div", { className: "main-container" },
                 React.createElement(TitleHead_1.TitleHead, null, "\u30D5\u30A9\u30ED\u30FC"),
-                followList.length > 0 && (React.createElement("div", { className: "follow-article border" },
-                    React.createElement("ul", null, followList.map(function (follow) { return (React.createElement(RelationItem_1.RelationItem, { key: follow.id, id: follow.id, onNavigateClick: function () { return handleNavigate("/users/".concat(follow.id)); }, userName: follow.name, userUserName: follow.username, userBio: follow.bio, userAvatarUrl: follow.avatarUrl })); })))))),
+                followList.length > 0 ? (React.createElement("div", { className: "follow-article border" },
+                    React.createElement("ul", null, followList.map(function (follow) { return (React.createElement(RelationItem_1.RelationItem, { key: follow.id, id: follow.id, onNavigateClick: function () { return handleNavigate("/users/".concat(follow.id)); }, userName: follow.name, userUserName: follow.username, userBio: follow.bio, userAvatarUrl: follow.avatarUrl })); })))) : (React.createElement("p", { className: "mt-5" }, "\u30D5\u30A9\u30ED-\u3057\u3066\u3044\u308B\u30E6\u30FC\u30B6\u30FC\u306F\u3044\u307E\u305B\u3093")))),
         React.createElement(SidebarRight_1.SidebarRight, null)));
 };
 exports.ProfileFollowList = ProfileFollowList;
@@ -86636,8 +86636,8 @@ var ProfileFollowerList = function () {
         React.createElement("main", { className: "main flex-item" },
             React.createElement("div", { className: "main-container" },
                 React.createElement(TitleHead_1.TitleHead, null, "\u30D5\u30A9\u30ED\u30EF\u30FC"),
-                followerList.length > 0 && (React.createElement("div", { className: "follow-article border" },
-                    React.createElement("ul", null, followerList.map(function (follower) { return (React.createElement(RelationItem_1.RelationItem, { key: follower.id, id: follower.id, onNavigateClick: function () { return handleNavigate("/users/".concat(follower.id)); }, userName: follower.name, userUserName: follower.username, userBio: follower.bio, userAvatarUrl: follower.avatarUrl })); })))))),
+                followerList.length > 0 ? (React.createElement("div", { className: "follow-article border" },
+                    React.createElement("ul", null, followerList.map(function (follower) { return (React.createElement(RelationItem_1.RelationItem, { key: follower.id, id: follower.id, onNavigateClick: function () { return handleNavigate("/users/".concat(follower.id)); }, userName: follower.name, userUserName: follower.username, userBio: follower.bio, userAvatarUrl: follower.avatarUrl })); })))) : (React.createElement("p", { className: "mt-5" }, "\u30D5\u30A9\u30ED\u30EF\u30FC\u306F\u3044\u307E\u305B\u3093")))),
         React.createElement(SidebarRight_1.SidebarRight, null)));
 };
 exports.ProfileFollowerList = ProfileFollowerList;
@@ -86710,7 +86710,7 @@ var Search = function () {
         React.createElement("main", { className: "main flex-item" },
             React.createElement("ul", { className: "main-container" },
                 React.createElement(TitleHead_1.TitleHead, null, "\u691C\u7D22\u7D50\u679C"),
-                (searchList === null || searchList === void 0 ? void 0 : searchList.length) > 0 ? (searchList.map(function (post) { return React.createElement(PostItem_1.PostItem, { key: post.id, post: post }); })) : (searchUserList === null || searchUserList === void 0 ? void 0 : searchUserList.length) > 0 ? (searchUserList.map(function (user) { return React.createElement(UserProfileItem_1.UserProfileItem, { key: user.id, user: user }); })) : (React.createElement("p", { className: "mt-2" }, "\u8A72\u5F53\u3059\u308B\u6295\u7A3F\u30FB\u30E6\u30FC\u30B6\u30FC\u306F\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002")))),
+                (searchList === null || searchList === void 0 ? void 0 : searchList.length) > 0 ? (searchList.map(function (post) { return React.createElement(PostItem_1.PostItem, { key: post.id, post: post }); })) : (searchUserList === null || searchUserList === void 0 ? void 0 : searchUserList.length) > 0 ? (searchUserList.map(function (user) { return React.createElement(UserProfileItem_1.UserProfileItem, { key: user.id, user: user }); })) : (React.createElement("p", { className: "mt-5" }, "\u8A72\u5F53\u3059\u308B\u6295\u7A3F\u30FB\u30E6\u30FC\u30B6\u30FC\u306F\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002")))),
         React.createElement(SidebarRight_1.SidebarRight, null)));
 };
 exports.Search = Search;
@@ -87856,10 +87856,7 @@ var PostItem_1 = __webpack_require__(/*! ./PostItem */ "./src/js/post/PostItem.t
 var useStockListData_1 = __webpack_require__(/*! ../hooks/stock/useStockListData */ "./src/js/hooks/stock/useStockListData.ts");
 var StockList = function () {
     var stockList = (0, useStockListData_1.useStockListData)().stockList;
-    return (react_1.default.createElement(react_1.default.Fragment, null, stockList
-        .slice()
-        .reverse()
-        .map(function (post) { return (react_1.default.createElement(PostItem_1.PostItem, { key: post.id, post: post })); })));
+    return (react_1.default.createElement(react_1.default.Fragment, null, stockList.length > 0 ? (stockList.map(function (post) { return react_1.default.createElement(PostItem_1.PostItem, { key: post.id, post: post }); })) : (react_1.default.createElement("p", { className: "mt-5" }, "\u30B9\u30C8\u30C3\u30AF\u306F\u3042\u308A\u307E\u305B\u3093"))));
 };
 exports.StockList = StockList;
 
@@ -101989,7 +101986,7 @@ function __rewriteRelativeImportExtension(path, preserveJsx) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("67e0880a869a63766e89")
+/******/ 		__webpack_require__.h = () => ("694b3af6f086d028234e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

@@ -23,7 +23,7 @@ export const FollowList = () => {
       <main className="main flex-item">
         <div className="main-container">
           <TitleHead>フォロー</TitleHead>
-          {followList.length > 0 && (
+          {followList.length > 0 ? (
             <div className="follow-article border">
               <ul>
                 {followList.map((follow) => (
@@ -39,6 +39,8 @@ export const FollowList = () => {
                 ))}
               </ul>
             </div>
+          ) : (
+            <p className="mt-5">フォロ-しているユーザーはいません</p>
           )}
         </div>
       </main>
