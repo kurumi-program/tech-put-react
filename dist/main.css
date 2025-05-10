@@ -1020,6 +1020,13 @@ header {
   height: auto;
   align-items: center;
   position: relative;
+  margin-right: 43px;
+}
+
+@media (max-width: 805px) {
+  .search {
+    margin-right: 0;
+  }
 }
 
 @media (max-width: 559px) {
