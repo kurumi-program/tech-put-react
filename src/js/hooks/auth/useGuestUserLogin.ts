@@ -25,7 +25,8 @@ export const useGuestUserLogin = () => {
 
         setFlashMessage("ゲストログインに成功しました");
         setTimeout(() => {
-          window.location.reload();
+          setFlashMessage("");
+          // window.location.reload();
         }, 2000);
         console.log("ログイン成功");
 
