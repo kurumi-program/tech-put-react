@@ -6,10 +6,10 @@
 TechPutは日々学習したことをアウトプットしたい時に気軽に投稿、共有できるサービスです。  
 文字数制限もなく、好きなように投稿できます。
 
-### URL
+### ★URL
 https://tech-put.com/
 
-### 詳細
+### ★詳細
 **⚫︎Qiita記事（使用方法などまとまっています）**  
 現在作成中〜  
 
@@ -17,7 +17,7 @@ https://tech-put.com/
 まだ投稿はしてません。  
 
 **⚫︎バックエンド情報**  
-[tech-put-rails](https://github.com/kurumi-program/tech-put-rails)
+https://github.com/kurumi-program/tech-put-rails
 
 ## 🌟 主な機能
 **ユーザー認証**  
