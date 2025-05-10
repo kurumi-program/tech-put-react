@@ -62,7 +62,7 @@ https://github.com/kurumi-program/tech-put-rails
 ・フォロー数/フォロワー数表示  
 
 **通知**  
-・通知の一覧表示
+・通知の一覧表示  
 ・フォローされたら  
 ・いいねされたら  
 ・メンションされたら  
