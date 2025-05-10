@@ -102,7 +102,7 @@ https://github.com/kurumi-program/tech-put-rails
 ・Googleログイン認証  
 ・下書き  
 ・投稿でプログラミングコードを埋め込める機能  
-・チャット機能  
+・チャット
 
 追加要望あれば、以下までお願いします！    
 techput.app@gmail.com
