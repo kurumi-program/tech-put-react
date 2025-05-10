@@ -1,4 +1,4 @@
-# TechPut - 技術に関する学びを気軽に共有できるサービス -
+# TechPut -技術に関する学びを気軽に共有できるサービス-
 ![techput-ogp](https://github.com/user-attachments/assets/86160abc-08ec-48f1-b203-9564427b50b6)
 `React` `TypeScript` `Tailwind CSS`
 
@@ -30,7 +30,7 @@ https://github.com/kurumi-program/tech-put-rails
 ・投稿一覧/詳細表示  
 ・投稿の新規作成/編集  
 ・学習モードの投稿機能（学習テンプレート表示） 
-・学習投稿の一覧表示（ユーザーのプロフィールに） 
+・学習投稿の一覧表示（ユーザーのプロフィールに）   
 ・投稿の保存/更新  
 ・投稿の削除  
 ・投稿数表示（ユーザーのプロフィールに）  
