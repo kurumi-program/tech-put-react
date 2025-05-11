@@ -101,10 +101,10 @@ https://github.com/kurumi-program/tech-put-rails
 ## 👀 今後の機能追加予定  
 ・Googleログイン認証  
 ・下書き  
-・学習機能の充実
-・チャット
-・タグ付け
-・退会処理
+・学習機能の充実  
+・チャット  
+・タグ付け  
+・退会処理  
 
 追加要望あれば、以下までお願いします！    
 techput.app@gmail.com
